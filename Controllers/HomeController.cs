@@ -14,7 +14,7 @@ namespace CarWebApp.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Cars()
         {
             ViewBag.Message = "List of cars";
 
@@ -31,7 +31,7 @@ namespace CarWebApp.Controllers
         public ActionResult SaveCar(Car car)
         {
             Console.WriteLine($"Car received make: {car.Make} power {car.Power} and is convertible {(car.Convertible ? "Yes" : "No")}");
-            return View("About");
+            return View("Cars");
         }
     }
 }
