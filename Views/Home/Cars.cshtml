@@ -7,6 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Car App</title>
+    <script type="text/javascript" src="@Url.Content("/Scripts/knockout-3.5.1.js")"></script>
 </head>
 <body>
 <form data-bind="submit: doSubmit">
@@ -16,7 +17,7 @@
         Convertible: <input type="checkbox" value="convertible" data-bind="checked: Convertible"/><br/>
     </div>
     <p>
-        This car is <span data-bind="text: MakeAndPower"/>
+        This car is <span data-bind="text: Stats"/>
     </p>
     <style>
             .button {

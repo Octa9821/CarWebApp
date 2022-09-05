@@ -10,36 +10,45 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+
+    <div class="form-horizontal" >
         <h4>Car</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Make, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Make, htmlAttributes: new { @class = "control-label col-md-2", data_bind = "value: Make" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Make, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Make, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Make" } })
                 @Html.ValidationMessageFor(model => model.Make, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Power, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Power, htmlAttributes: new { @class = "control-label col-md-2", data_bind = "value: Power" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Power, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Power, new { htmlAttributes = new { @class = "form-control", data_bind = "value: Power" } })
                 @Html.ValidationMessageFor(model => model.Power, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Convertible, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Convertible, htmlAttributes: new { @class = "control-label col-md-2", data_bind = "checked: Convertible" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Convertible)
+                    @Html.EditorFor(model => model.Convertible, new { htmlAttributes = new { data_bind = "checked: Convertible" } })
                     @Html.ValidationMessageFor(model => model.Convertible, "", new { @class = "text-danger" })
                 </div>
+            </div>
+        </div>
+
+        <div>
+            <p> The changed car will be: </p>
+            Make: <p type="text" name="txtMake" data-bind="text: Make" ></p><br />
+            Power: <p type="number" name="numPower" data-bind="text: Power" style="margin-top: 5px; margin-bottom: 5px" ></p><br />
+            <div style="align-content: center; border: 0.25px solid black; border-radius: 5px; padding-left: 5px; padding-right: 5px; display: inline-block">
+                Convertible: <input type="checkbox" value="convertible" data-bind="checked: Convertible" onclick="return false;" /><br />
             </div>
         </div>
 
@@ -55,6 +64,13 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/ViewModels/CarViewModel.js")
+    <script type="text/javascript">
+        this.viewModel = carViewModel('@Model.Make', @Model.Power, @Model.Convertible.ToString().ToLower());
+        ko.applyBindings(this.viewModel);
+    </script>
 }

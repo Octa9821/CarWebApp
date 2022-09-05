@@ -65,7 +65,7 @@ namespace CarWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Car car = db.Cars.Find(id);
+            var car = db.Cars.Find(id);
             if (car == null)
             {
                 return HttpNotFound();
